@@ -10,6 +10,13 @@
 #undef LEN
 #define LEN(x) (sizeof(x) / sizeof(*(x)))
 
+#undef PrIU
+#ifdef _WIN32
+#define PrIU "%lu"
+#else
+#define PrIU "%zu"
+#endif
+
 struct unit_test_next_break {
 	const char *description;
 

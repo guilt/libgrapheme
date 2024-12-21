@@ -19,12 +19,16 @@ BUILD_LDFLAGS  = $(LDFLAGS)
 
 SHFLAGS   = -fPIC -ffreestanding
 
-SOFLAGS   = -shared -nostdlib -Wl,--soname=libgrapheme.so.$(VERSION_MAJOR).$(VERSION_MINOR)
 SONAME    = libgrapheme.so.$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
+SOFLAGS   = -shared -nostdlib -Wl,--soname=$(SONAME)
+ifeq ($(OS),Windows_NT)
+    SONAME = libgrapheme.dll
+    SOFLAGS   = -s -shared -Wl,--subsystem,windows -Wl,--soname=$(SONAME)
+endif
 SOSYMLINK = true
 
 # tools (unset $LDCONFIG to not call ldconfig(1) after install/uninstall)
-CC       = cc
+CC       = gcc
 BUILD_CC = $(CC)
 AR       = ar
 RANLIB   = ranlib

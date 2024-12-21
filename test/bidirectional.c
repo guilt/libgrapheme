@@ -46,7 +46,7 @@ main(int argc, char *argv[])
 			continue;
 err:
 			fprintf(stderr,
-			        "%s: Failed conformance test %zu (mode %i) [",
+			        "%s: Failed conformance test "PrIU" (mode %i) [",
 			        argv[0], i, bidirectional_test[i].mode[m]);
 			for (j = 0; j < bidirectional_test[i].cplen; j++) {
 				fprintf(stderr, " 0x%04" PRIXLEAST32,
@@ -66,7 +66,7 @@ err:
 			failed++;
 		}
 	}
-	printf("%s: %zu/%zu conformance tests passed.\n", argv[0],
+	printf("%s: "PrIU"/"PrIU" conformance tests passed.\n", argv[0],
 	       num_tests - failed, num_tests);
 
 	return 0;

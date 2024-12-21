@@ -67,7 +67,7 @@ main(int argc, char *argv[])
 		if (len != enc_test[i].exp_len ||
 		    memcmp(arr, enc_test[i].exp_arr, len)) {
 			fprintf(stderr,
-			        "%s, Failed test %zu: "
+			        "%s, Failed test "PrIU": "
 			        "Expected (",
 			        argv[0], i);
 			for (j = 0; j < enc_test[i].exp_len; j++) {
@@ -87,7 +87,7 @@ main(int argc, char *argv[])
 			failed++;
 		}
 	}
-	printf("%s: %zu/%zu unit tests passed.\n", argv[0],
+	printf("%s: "PrIU"/"PrIU" unit tests passed.\n", argv[0],
 	       LEN(enc_test) - failed, LEN(enc_test));
 
 	return (failed > 0) ? 1 : 0;

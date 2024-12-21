@@ -227,7 +227,7 @@ bidirectional_test_list_print(const struct bidirectional_test *test,
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.cplen      = %zu,\n", test[i].cplen);
+		printf("\t\t.cplen      = "PrIU",\n", test[i].cplen);
 
 		printf("\t\t.mode       = (enum "
 		       "grapheme_bidirectional_override[]){");
@@ -248,7 +248,7 @@ bidirectional_test_list_print(const struct bidirectional_test *test,
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.modelen    = %zu,\n", test[i].modelen);
+		printf("\t\t.modelen    = "PrIU",\n", test[i].modelen);
 
 		printf("\t\t.level      = (int_least8_t[]){");
 		for (j = 0; j < test[i].cplen; j++) {
@@ -272,7 +272,7 @@ bidirectional_test_list_print(const struct bidirectional_test *test,
 		} else {
 			printf("NULL,\n");
 		}
-		printf("\t\t.reorderlen = %zu,\n", test[i].reorderlen);
+		printf("\t\t.reorderlen = "PrIU",\n", test[i].reorderlen);
 
 		printf("\t},\n");
 	}

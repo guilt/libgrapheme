@@ -9,6 +9,12 @@
 
 #define LEN(x) (sizeof(x) / sizeof *(x))
 
+#ifdef _WIN32
+#define PrIU "%lu"
+#else
+#define PrIU "%zu"
+#endif
+
 struct property_spec {
 	const char *enumname;
 	const char *file;

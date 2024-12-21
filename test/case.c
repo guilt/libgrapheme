@@ -573,8 +573,8 @@ unit_test_callback_is_case_utf8(const void *t, size_t off, const char *name,
 	return 0;
 err:
 	fprintf(stderr,
-	        "%s: %s: Failed unit test %zu \"%s\" "
-	        "(returned (%s, %zu) instead of (%s, %zu)).\n",
+	        "%s: %s: Failed unit test "PrIU" \"%s\" "
+	        "(returned (%s, "PrIU") instead of (%s, "PrIU")).\n",
 	        argv0, name, off, test->description, ret ? "true" : "false",
 	        caselen, test->output.ret ? "true" : "false",
 	        test->output.caselen);
@@ -626,8 +626,8 @@ unit_test_callback_to_case_utf8(const void *t, size_t off, const char *name,
 	return 0;
 err:
 	fprintf(stderr,
-	        "%s: %s: Failed unit test %zu \"%s\" "
-	        "(returned (\"%.*s\", %zu) instead of (\"%.*s\", %zu)).\n",
+	        "%s: %s: Failed unit test "PrIU" \"%s\" "
+	        "(returned (\"%.*s\", "PrIU") instead of (\"%.*s\", "PrIU")).\n",
 	        argv0, name, off, test->description, (int)ret, buf, ret,
 	        (int)test->output.ret, test->output.dest, test->output.ret);
 	return 1;

@@ -301,14 +301,14 @@ main(int argc, char *argv[])
 
 		if (len != dec_test[i].exp_len || cp != dec_test[i].exp_cp) {
 			fprintf(stderr,
-			        "%s: Failed test %zu: "
+			        "%s: Failed test "PrIU": "
 			        "Expected (%zx,%u), but got (%zx,%u).\n",
 			        argv[0], i, dec_test[i].exp_len,
 			        dec_test[i].exp_cp, len, cp);
 			failed++;
 		}
 	}
-	printf("%s: %zu/%zu unit tests passed.\n", argv[0],
+	printf("%s: "PrIU"/"PrIU" unit tests passed.\n", argv[0],
 	       LEN(dec_test) - failed, LEN(dec_test));
 
 	return (failed > 0) ? 1 : 0;

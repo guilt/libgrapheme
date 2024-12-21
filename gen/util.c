@@ -1,4 +1,4 @@
-/* See LICENSE file for copyright and license details. */
+﻿/* See LICENSE file for copyright and license details. */
 #include <ctype.h>
 #include <errno.h>
 #include <inttypes.h>
@@ -145,6 +145,56 @@ range_parse(const char *str, struct range *range)
 
 	return 0;
 }
+
+#ifdef _WIN32
+ssize_t getline(char **lineptr, size_t *n, FILE *stream) {
+    size_t pos;
+    int c;
+
+    if (lineptr == NULL || stream == NULL || n == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    c = getc(stream);
+    if (c == EOF) {
+        return -1;
+    }
+
+    if (*lineptr == NULL) {
+        *lineptr = malloc(128);
+        if (*lineptr == NULL) {
+            return -1;
+        }
+        *n = 128;
+    }
+
+    pos = 0;
+    while(c != EOF) {
+        if (pos + 1 >= *n) {
+            size_t new_size = *n + (*n >> 2);
+            if (new_size < 128) {
+                new_size = 128;
+            }
+            char *new_ptr = realloc(*lineptr, new_size);
+            if (new_ptr == NULL) {
+                return -1;
+            }
+            *n = new_size;
+            *lineptr = new_ptr;
+        }
+
+        ((unsigned char *)(*lineptr))[pos ++] = c;
+        if (c == '\n') {
+            break;
+        }
+        c = getc(stream);
+    }
+
+    (*lineptr)[pos] = '\0';
+    return pos;
+}
+#endif 
 
 void
 parse_file_with_callback(const char *fname,
@@ -423,7 +473,7 @@ properties_print_lookup_table(char *name, size_t *data, size_t datalen)
 
 	printf("static const %s %s[] = {\n\t", type, name);
 	for (i = 0; i < datalen; i++) {
-		printf("%zu", data[i]);
+		printf(""PrIU"", data[i]);
 		if (i + 1 == datalen) {
 			printf("\n");
 		} else if ((i + 1) % 8 != 0) {
@@ -749,17 +799,17 @@ break_test_list_print(const struct break_test *test, size_t testlen,
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.cplen  = %zu,\n", test[i].cplen);
+		printf("\t\t.cplen  = "PrIU",\n", test[i].cplen);
 
 		printf("\t\t.len    = (size_t[]){");
 		for (j = 0; j < test[i].lenlen; j++) {
-			printf(" %zu", test[i].len[j]);
+			printf(" "PrIU"", test[i].len[j]);
 			if (j + 1 < test[i].lenlen) {
 				putchar(',');
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.lenlen = %zu,\n", test[i].lenlen);
+		printf("\t\t.lenlen = "PrIU",\n", test[i].lenlen);
 
 		printf("\t\t.descr  = \"%s\",\n", test[i].descr);
 

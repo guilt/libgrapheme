@@ -247,7 +247,7 @@ main(int argc, char *argv[])
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.cplen  = %zu,\n", sc[i].upper.cplen);
+		printf("\t\t.cplen  = "PrIU",\n", sc[i].upper.cplen);
 		printf("\t},\n");
 	}
 	printf("};\n\n");
@@ -264,7 +264,7 @@ main(int argc, char *argv[])
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.cplen  = %zu,\n", sc[i].lower.cplen);
+		printf("\t\t.cplen  = "PrIU",\n", sc[i].lower.cplen);
 		printf("\t},\n");
 	}
 	printf("};\n\n");
@@ -281,7 +281,7 @@ main(int argc, char *argv[])
 			}
 		}
 		printf(" },\n");
-		printf("\t\t.cplen  = %zu,\n", sc[i].title.cplen);
+		printf("\t\t.cplen  = "PrIU",\n", sc[i].title.cplen);
 		printf("\t},\n");
 	}
 	printf("};\n\n");
